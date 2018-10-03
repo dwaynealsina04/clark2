@@ -1,0 +1,489 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<style>
+        .top-container {
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+}
+
+.header {
+  padding: 10px 16px;
+  background: #555;
+  color: #f1f1f1;
+}
+ 
+   .in5 {
+    width:45%;
+    padding: 8px 8px;
+      
+    margin: 5px 2;
+         text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius:8px;
+         
+    box-sizing: border-box;
+}
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 102px;
+}
+    .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+        .dropbtn {
+    background-color: gray;
+    color: whitesmoke;
+    padding: 12px;
+    font-size: 16px;
+   border-radius: 10px;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: ghostwhite;
+    color: darkgray;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 16px 46px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+        
+
+    </style>
+
+	<title>Philadise</title>
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+ 
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/lightbox.min.css">
+     <link rel="stylesheet" type="text/css" href="css/navigation.css">
+        <script type="text/javascript" src="js/lightbox-plus-jquery.min.js"></script>
+        <script type="text/javascript" src="js/navigationbar.js"></script>
+      
+      <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
+    
+    
+    
+            <script type="text/javascript">
+          
+            function codeAddress() 
+            {
+            
+                var myData = localStorage['objectToPass'];
+         
+                var firstData = myData;
+                if(myData === "guest")
+                    {
+                        document.getElementById('shareexp').textContent ="Register";
+                         document.getElementById('log').textContent ="Login";
+                    }
+                else
+                    {
+                    document.getElementById('name').textContent = myData;
+                    }
+           
+               
+             }
+        
+
+  window.onload = codeAddress;
+           
+       </script> 
+</head>
+
+<body bgcolor= "silver" id="main">
+    <div class="header" id="myHeader">
+        
+        <div id="mySidenav" class="sidenav" >
+  	 
+    <h1 id= "name">Guest</h1>
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+ 
+  <a href="#" id = home onclick="home()">Home</a>
+  <a href="#" id = shareexp onclick="share()">Share Experiences</a>
+  <a href="#"  id = log onclick="login()">Log-out</a>
+            
+            
+    
+</div>
+        
+ 
+             <div class="header" id="myHeader">
+<h2 >Philadise: The Traveler's Thoughts</h2>
+                 <br>
+  <label class = "label" >Category </label>
+      <div class="dropdown">
+<button onclick="myFunction()" id = "dropdown" class="dropbtn">All</button>
+  <div id="myDropdown" class="dropdown-content">
+       <a onclick ="btn1()">All</a>
+    <a onclick ="btn2()">Beach and Resorts</a>
+    <a onclick ="btn3()">Establishments</a>
+    <a onclick ="btn4()">Forest and Mountains</a>
+        <a onclick ="btn5()">Restaurants and Bars</a>
+      
+  </div>
+</div>
+  
+        
+</div>
+        
+</div>
+
+
+<span style="font-size:30px;cursor:pointer;color: black" onclick="openNav()" >&#9776</span>
+ 
+
+    
+
+
+    <div class="gallery" id = "main">
+    <ul id="cafe-list">
+   
+ 
+        </ul>
+         <ul id="cafe-list3" hidden>
+   
+ 
+        </ul> 
+        
+            <ul id="cafe-list4" hidden>
+   
+ 
+        </ul> 
+        
+            <ul id="cafe-list5" hidden>
+   
+ 
+        </ul> 
+        
+            <ul id="cafe-list6" hidden>
+   
+ 
+        </ul> 
+        
+          <ul bgcolor = "white" id="cafe-list2" hidden>
+        	<div class="container-contact100">
+	
+
+			<form class="contact100-form validate-form">
+				<span class="contact100-form-title">
+					Share Your Experience
+				</span>
+
+				<div class="wrap-input100 rs1-wrap-input100 validate-input" >
+					<span class="label-input100">Tourist Spot</span>
+					<input class="input100" id="dest" placeholder="Enter the tourist spot">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 rs1-wrap-input100 validate-input" >
+					<span class="label-input100">Tourist Location</span>
+					<input class="input100" type="text"  id="place" placeholder="Enter the tourist address">
+					<span class="focus-input100"></span>
+				</div>
+                
+                	<div class="wrap-input100 rs1-wrap-input100 validate-input">
+				Category: 
+                <select id ="category" class="in5" >
+                <option>Beach and Resorts</option>
+                <option>Establishments</option>
+                <option>Forest and Mountains</option>
+                <option>Restaurants and Bars</option>
+                 
+            </select> 
+				</div>
+          
+                  <input type="file"  id = "pic" accept="image/*">
+ 
+ 
+ 
+<div class="wrap-input100 rs1-wrap-input100 validate-input"  >
+					<span class="label-input100">Put your feelings</span>
+					<input class="input100" type="text"  id="feelings" placeholder="What do you feel about this place?">
+					<span class="focus-input100"></span>
+				</div>
+ 
+
+
+
+
+		 
+
+				<div class="container-contact100-form-btn">
+					<button class="contact100-form-btn" onclick = "my()">
+						<span>
+							Submit
+							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</form>
+ 
+        
+        </ul>
+        
+    </div>
+        	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+        
+ <script>
+ // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAr_pJWlvXEUEySNCOzCE3TYFVzXHFILZs",
+    authDomain: "philadise-d976c.firebaseapp.com",
+    databaseURL: "https://philadise-d976c.firebaseio.com",
+    projectId: "philadise-d976c",
+    storageBucket: "philadise-d976c.appspot.com",
+    messagingSenderId: "7139434211"
+  };
+  firebase.initializeApp(config);
+</script>
+    
+     <script src="app.js"></script>
+
+    <script>
+    function share()
+        {
+            if(document.getElementById('shareexp').textContent === "Register")
+                {
+                     window.location.href =  "file:///C:/Users/clark/Desktop/philadise/Web/file/registration/register.html";
+                }
+            else
+                {
+             document.getElementById("cafe-list").style.display="none";
+             document.getElementById("cafe-list2").style.display="block";
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+                }
+
+ 
+        }
+          function home()
+        {
+            document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+            document.getElementById("cafe-list").style.display="block";
+             document.getElementById("cafe-list2").style.display="none";
+ 
+        }
+    function login()
+    {
+    
+       window.location.href = "file:///C:/Users/clark/Desktop/philadise/Web/file/Login%20-%20Copy/Login.html";
+    }
+    </script>
+    
+    
+    <script>
+   
+    function my()
+    {
+       
+        var db=firebase.firestore();
+        var storage = firebase.storage();
+        var storageRef = storage.ref();
+        var spaceRef = storageRef.child('storage');
+        const ref = firebase.storage().ref().child('storage');
+         
+        const file = document.querySelector('#pic').files[0]; 
+        const name = (new Date()) + '-' + file.name;
+        const metadata = { contentType: file.type };
+        const task = ref.child(name).put(file, metadata);
+     
+       
+        task
+        .then(snapshot => snapshot.ref.getDownloadURL())
+        .then((url) => {
+    
+     
+                imageurl = url,toString;
+            db.collection("share").add({
+                 image: imageurl,
+                place :document.getElementById("place").value,
+                feelings :document.getElementById("feelings").value,
+                destination: document.getElementById("dest").value,
+                 category: document.getElementById("category").value,
+                name:document.getElementById("name").textContent 
+             
+            
+            });
+        
+            
+  });
+           alert("You share it successfully!");
+    }
+    
+        
+   function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+           function btn1() {
+        document.getElementById("cafe-list").style.display = "block";
+        document.getElementById("cafe-list3").style.display = "none";
+     
+        document.getElementById("cafe-list4").style.display = "none";
+        document.getElementById("cafe-list5").style.display = "none"; 
+        document.getElementById("cafe-list6").style.display = "none"; 
+        document.getElementById("dropdown").textContent = "All";
+}
+                  function btn2() {
+        document.getElementById("cafe-list").style.display = "none";
+        document.getElementById("cafe-list3").style.display = "block";
+ 
+        document.getElementById("cafe-list4").style.display = "none";
+        document.getElementById("cafe-list5").style.display = "none"; 
+        document.getElementById("cafe-list6").style.display = "none"; 
+        document.getElementById("dropdown").textContent = "Beach and Resorts";
+}
+                   function btn3() {
+        document.getElementById("cafe-list").style.display = "none";
+        document.getElementById("cafe-list3").style.display = "none";
+ 
+        document.getElementById("cafe-list4").style.display = "block";
+        document.getElementById("cafe-list5").style.display = "none"; 
+        document.getElementById("cafe-list6").style.display = "none";      
+    document.getElementById("dropdown").textContent = "Establishments";
+}
+                  function btn4() {
+        document.getElementById("cafe-list").style.display = "none";
+        document.getElementById("cafe-list3").style.display = "none";
+ 
+        document.getElementById("cafe-list4").style.display = "none";
+        document.getElementById("cafe-list5").style.display = "block"; 
+        document.getElementById("cafe-list6").style.display = "none";  
+    document.getElementById("dropdown").textContent = "Forest and Mountains";
+}
+                      function btn5() {
+        document.getElementById("cafe-list").style.display = "none";
+        document.getElementById("cafe-list3").style.display = "none";
+ 
+        document.getElementById("cafe-list4").style.display = "none";
+        document.getElementById("cafe-list5").style.display = "none"; 
+        document.getElementById("cafe-list6").style.display = "block"; 
+    document.getElementById("dropdown").textContent = "Restaurants and Bars";
+}
+     
+ 
+  
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}     
+</script>
+   
+</body>
+
+</html>
