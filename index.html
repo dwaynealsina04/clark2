@@ -398,7 +398,7 @@
         .then((url) => {
     
      
-                imageurl = url.toString;
+                imageurl = url;
             db.collection("share").add({
                  image: imageurl,
                 place :document.getElementById("place").value,
@@ -413,6 +413,9 @@
             
   });
            alert("You share it successfully!");
+	    
+	     document.getElementById("cafe-list").style.display="block";
+             document.getElementById("cafe-list2").style.display="none";
     }
     
         
